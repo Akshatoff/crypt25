@@ -1,7 +1,10 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import Image from 'next/image'
 import { authClient } from "@/lib/auth-client";
+import discordSVG from '../../../public/discord.svg';
 
 const handleLogin = async () => {
   try {
@@ -20,12 +23,14 @@ const handleLogin = async () => {
 export default function page() {
   return (
     <>
-      <div className="section" id="login">
-        <h1 className="text" id="login">
-          Discord Login
-        </h1>
-        <button className="btn" onClick={handleLogin}>
-          Sign In
+      <div className="section centered cover" id="home">
+        <span className="subtitle">
+          Crypt@trix
+        </span>
+        <p>Interact with the button below to authorise your Discord account.</p>
+        <button className="blurple" onClick={handleLogin}>
+          <Image src={discordSVG} alt="Discord" />
+          Login with Discord
         </button>
       </div>
     </>
