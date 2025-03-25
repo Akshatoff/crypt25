@@ -32,7 +32,7 @@ export default function page() {
     <>
       <div className="section" id="dash">
         {error ? (
-          <p> Error Loading User Data</p>
+          <p>Error Loading User Data</p>
         ) : session ? (
           <h1 className="text" id="name">
             Welcome, {session.user?.name || "User"}
