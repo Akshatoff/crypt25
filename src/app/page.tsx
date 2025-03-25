@@ -13,7 +13,7 @@ export default function Home() {
         <span className="subtitle">
           Ordin@trix 25.0 presents…
         </span>
-        <h1 className="text animate__pulse" id="heading">
+        <h1 className="title animate__animated animate__pulse animate__slow">
           Crypt@trix
         </h1>
         <Link href="/login">

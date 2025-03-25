@@ -53,10 +53,11 @@ body {
   justify-content: center;
 }
 
-#heading {
+.title {
   font-size: 5rem;
   font-family: "Montserrat", sans-serif;
   text-align: center;
+  user-select: none;
 }
 
 span.subtitle {
@@ -67,6 +68,7 @@ span.subtitle {
   text-align: center;
   color: var(--text);
   opacity: 0.8;
+  user-select: none;
 }
 
 a {
@@ -79,29 +81,32 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: 1rem;
   font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
   cursor: pointer;
   border: none;
   background: none;
   color: var(--text);
   padding: 0.5rem 1rem;
   border-radius: 10px;
+  user-select: none;
+  transition: filter 250ms, scale 250ms;
 }
 
 button.blurple {
   background: #5865F2;
   color: #FFFFFF;
-  transition: filter 100ms;
 }
 
-button.blurple:hover {
+button:hover {
   filter: brightness(0.8);
+  scale: 0.975;
 }
 
-button.blurple:focus,
-button.blurple:active {
+button:focus,
+button:active {
   filter: brightness(0.6);
+  scale: 0.95;
 }
 
 button img {
