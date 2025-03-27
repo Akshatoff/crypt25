@@ -121,6 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
   text-decoration: none;
   color: var(--link);
+  transition: filter 250ms, scale 250ms;
 }
 
 a.titleLink {
@@ -182,13 +183,15 @@ button.blurple {
   color: #FFFFFF;
 }
 
-button:hover {
+button:hover, a:hover {
   filter: brightness(0.8);
   scale: 0.975;
 }
 
 button:focus,
-button:active {
+button:active,
+a:focus,
+a:active {
   filter: brightness(0.6);
   scale: 0.95;
 }
