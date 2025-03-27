@@ -1,17 +1,70 @@
 "use client";
 
 import React from "react";
+import { useEffect } from "react";
 
 const fetchLeaderboard = async () => {
+  function addToLeaderboard(rank:any, team:any, score:any) {
+    const table = document.querySelector("#leaderboard");
+    if (table) {
+      table.innerHTML += (
+        `
+          <tr>
+            <td>${rank}</td>
+            <td>${team}</td>
+            <td>${score}</td>
+          </tr>
+        `
+      );
+    }
+  }
   try {
     let data = ("add backend call here!!!!!!!!!!");
     // add code that adds data as rows to the table
+    // use addToLeaderboard(rank, team, score) to add a row
+    // data.forEach((entry) => {
+    //    addToLeaderboard(entry.rank, entry.team, entry.score);
+    // });
   } catch (error) {
     console.error("Fetching leaderboard failed", error);
   }
 };
 
+function Table() {
+  return (
+    <table>
+
+      <colgroup>
+        <col style={{ width: "20%" }} />
+      </colgroup>
+      <colgroup>
+        <col style={{ width: "50%" }} />
+      </colgroup>
+      <colgroup>
+        <col style={{ width: "30%" }} />
+      </colgroup>
+
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Team</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+
+      <tbody id="leaderboard">
+        
+      </tbody>
+
+    </table>
+  )
+}
+
 export default function page() {
+  useEffect(() => {
+    fetchLeaderboard();
+  }, []);
+
   return (
     <>
       <div className="section centered cover" id="home">
@@ -19,50 +72,7 @@ export default function page() {
           Crypt@trix
         </span>
         <span className="title">Leaderboard</span>
-        <table>
-
-          <colgroup>
-            <col style={{ width: "20%" }} />
-          </colgroup>
-          <colgroup>
-            <col style={{ width: "50%" }} />
-          </colgroup>
-          <colgroup>
-            <col style={{ width: "30%" }} />
-          </colgroup>
-
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Team</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Team 1</td>
-              <td>500</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Team 2</td>
-              <td>300</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Team 3</td>
-              <td>250</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Team 4</td>
-              <td>100</td>
-            </tr>
-          </tbody>
-
-        </table>
+        <Table></Table>
       </div>
     </>
   );
