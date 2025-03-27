@@ -4,7 +4,7 @@ import React from "react";
 
 const fetchLeaderboard = async () => {
   try {
-    let data = // add backend call here;
+    let data = ("add backend call here!!!!!!!!!!");
     // add code that adds data as rows to the table
   } catch (error) {
     console.error("Fetching leaderboard failed", error);
