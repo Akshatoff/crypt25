@@ -52,9 +52,7 @@ function Table() {
         </tr>
       </thead>
 
-      <tbody id="leaderboard">
-        
-      </tbody>
+      <tbody id="leaderboard"></tbody>
 
     </table>
   )

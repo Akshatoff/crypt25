@@ -47,6 +47,12 @@ body {
   height: 100%;
 }
 
+div.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 .section {
   width: 100%;
   padding: 4rem;
@@ -130,17 +136,16 @@ img.scroll-indicator {
   opacity: 0.25;
 }
 
-
 button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   border: none;
-  background: none;
+  background: var(--darkTint2);
   color: var(--text);
   padding: 0.5rem 1rem;
   border-radius: 10px;
