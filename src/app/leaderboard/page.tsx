@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useEffect } from "react";
+import Back from '../components/Back';
 
 const fetchLeaderboard = async () => {
   function addToLeaderboard(rank:any, team:any, score:any) {
@@ -65,6 +66,7 @@ export default function page() {
 
   return (
     <>
+      <Back></Back>
       <div className="section centered cover" id="home">
         <span className="subtitle">
           Crypt@trix
