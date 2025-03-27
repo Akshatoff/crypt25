@@ -123,6 +123,13 @@ a {
   color: var(--link);
 }
 
+a.titleLink {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  margin-top: -15px;
+  color: var(--text);
+}
+
 p {
   font-family: "Montserrat", sans-serif;
 }

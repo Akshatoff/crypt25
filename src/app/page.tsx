@@ -30,6 +30,7 @@ function CoverSection() {
           </button>
         </Link>
       </div>
+      <Link href="/leaderboard" className="titleLink">View leaderboard ›</Link>
       <Image className="scroll-indicator" src={scrollIndicator} alt="Scroll down"></Image>
     </div>
   );
