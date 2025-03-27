@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from 'next/image'
 import { authClient } from "@/lib/auth-client";
 import discordSVG from '../../../public/discord.svg';
+import Back from '../components/Back';
 
 const handleLogin = async () => {
   try {
@@ -23,6 +24,7 @@ const handleLogin = async () => {
 export default function page() {
   return (
     <>
+      <Back></Back>
       <div className="section centered cover" id="home">
         <span className="subtitle">
           Crypt@trix

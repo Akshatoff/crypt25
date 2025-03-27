@@ -166,6 +166,10 @@ button.backgroundless {
   color: var(--text);
 }
 
+button.highMargin {
+  margin: 1rem;
+}
+
 button.blurple {
   background: #5865F2;
   color: #FFFFFF;

@@ -5,7 +5,7 @@ import backIcon from '../../../public/back.svg';
 export default function Back() {
   return (
     <Link href="/">
-      <button className="backgroundless enlarged">
+      <button className="backgroundless enlarged highMargin">
         <Image src={backIcon} alt="Back"></Image>
       </button>
     </Link>

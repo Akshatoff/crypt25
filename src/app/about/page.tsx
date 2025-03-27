@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from 'next/image';
 import aboutImage from '../../../public/example.png';
-import Back from '../components/back.tsx';
+import Back from '../components/Back';
 
 function CoverSection() {
   return (
@@ -9,7 +9,7 @@ function CoverSection() {
       <span className="subtitle">
         What is
       </span>
-      <h1 className="title animate__animated animate__pulse animate__slow">
+      <h1 className="title">
         Crypt@trix
       </h1>
     </div>
