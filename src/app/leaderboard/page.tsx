@@ -31,6 +31,22 @@ const fetchLeaderboard = async () => {
   }
 };
 
+const refreshLeaderboard = async () => {
+  const table = document.querySelector("#leaderboard");
+  if (table) table.innerHTML = "";
+  await fetchLeaderboard();
+
+  const refreshButton = document.querySelector(".titleLink");
+  if (refreshButton) {
+    refreshButton.innerHTML = "Refreshed!";
+    refreshButton.classList.add("dimmed");
+    setTimeout(() => {
+      refreshButton.innerHTML = "Refresh ↻";
+      refreshButton.classList.remove("dimmed");
+    }, 2500);
+  }
+};
+
 function Table() {
   return (
     <table>
@@ -71,6 +87,7 @@ export default function page() {
         <span className="subtitle">
           Crypt@trix
         </span>
+        <span className="titleLink" onClick={refreshLeaderboard}>Refresh ↻</span>
         <span className="title">Leaderboard</span>
         <Table></Table>
       </div>

@@ -140,11 +140,14 @@ a {
   transition: filter 250ms, scale 250ms;
 }
 
-a.titleLink {
+.titleLink {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.8rem;
   margin-top: -15px;
   color: var(--text);
+  transition: filter 250ms, scale 250ms;
+  cursor: pointer;
+  user-select: none;
 }
 
 p {
@@ -211,7 +214,10 @@ button:hover, a:hover {
 button:focus,
 button:active,
 a:focus,
-a:active {
+a:active,
+span.titleLink:focus,
+span.titleLink:active,
+span.titleLink.dimmed {
   filter: brightness(0.6);
   scale: 0.95;
 }
