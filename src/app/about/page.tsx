@@ -101,8 +101,8 @@ export default function Home() {
       <Section4></Section4>
       <div className="centered-buttons">
         <Link href="/guidelines">
-          <button>
-            Guidelines
+          <button className="rounded">
+            View Guidelines
           </button>
         </Link>
       </div>

@@ -16,8 +16,8 @@ font-family: 'Roboto', sans-serif; */
 }
 
 :root {
-  --bg: #121212;
-  --bg2: #000000;
+  --bg: #202020;
+  --bg2: #080808;
   --darkTint1: #303030;
   --darkTint2: #505050;
   --text: #fff;
@@ -39,6 +39,7 @@ body {
   width: 100%;
   color: var(--text);
   background-image: linear-gradient(var(--bg), var(--bg2));
+  background-attachment: fixed;
 }
 
 body {
@@ -191,6 +192,10 @@ button.backgroundless {
 
 button.highMargin {
   margin: 1rem;
+}
+
+button.rounded {
+  border-radius: 100px;
 }
 
 button.blurple {

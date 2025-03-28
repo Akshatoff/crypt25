@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Crypt@Trix @25.0",
+  title: "Crypt@trix 25.0",
   description: "The return of crypt",
 };
 
