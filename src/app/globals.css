@@ -75,6 +75,10 @@ div.centered-buttons {
   min-height: 60vh;
 }
 
+.section.cover.veryIncompleteCover {
+  min-height: 40vh;
+}
+
 .section.flex {
   display: flex;
   gap: 2rem;
