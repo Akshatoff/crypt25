@@ -53,6 +53,15 @@ div.flex-row {
   gap: 1rem;
 }
 
+div.centered-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5rem;
+}
+
 .section {
   width: 100%;
   padding: 4rem;
@@ -69,6 +78,8 @@ div.flex-row {
 .section.flex {
   display: flex;
   gap: 2rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .section.flex .flex-occupy-67 {
@@ -218,4 +229,12 @@ td, th {
 th {
   background: var(--darkTint1);
   border: 2.5px var(--darkTint1) solid;
+}
+
+ul, ol {
+  margin: 1.5rem 0;
+}
+
+li {
+  margin-left: 2rem;
 }
