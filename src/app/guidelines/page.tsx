@@ -8,6 +8,16 @@ const eventConfig = {
 
 const duration = `${(eventConfig.endDate.getTime() - eventConfig.startDate.getTime()) / 3600000} hours`;
 
+function addOrdinalSuffix(day: number): string {
+  if (day > 3 && day < 21) return `${day}th`;
+  switch (day % 10) {
+    case 1: return `${day}st`;
+    case 2: return `${day}nd`;
+    case 3: return `${day}rd`;
+    default: return `${day}th`;
+  }
+}
+
 const startDate = eventConfig.startDate.toLocaleString("en-IN", {
   weekday: "long",
   month: "long",
@@ -15,7 +25,7 @@ const startDate = eventConfig.startDate.toLocaleString("en-IN", {
   hour: "numeric",
   minute: "numeric",
   hour12: true,
-}).replace(" at", "");
+}).replace(" at", "").replace(/\d+/, (day) => addOrdinalSuffix(parseInt(day)));
 
 const endDate = eventConfig.endDate.toLocaleString("en-IN", {
   weekday: "long",
@@ -24,7 +34,7 @@ const endDate = eventConfig.endDate.toLocaleString("en-IN", {
   hour: "numeric",
   minute: "numeric",
   hour12: true,
-}).replace(" at", "");
+}).replace(" at", "").replace(/\d+/, (day) => addOrdinalSuffix(parseInt(day)));
 
 function CoverSection() {
   return (

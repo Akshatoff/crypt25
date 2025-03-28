@@ -41,7 +41,7 @@ function Section1() {
     <div className="section flex" id="about">
       <div className="flex-occupy-67">
         <h2>About Crypt</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque semper turpis nisl, et volutpat ligula vulputate eget. Nulla sed felis finibus, bibendum ante quis, suscipit nisl. Vivamus ac urna sed erat accumsan dictum. Fusce urna dui, ultrices fermentum ornare at, placerat eget elit. In malesuada a lectus in faucibus. Nullam finibus pulvinar pharetra. In et mauris ut ligula pharetra semper. Curabitur consequat ligula non eleifend tincidunt. Quisque at vulputate ex. Vestibulum dolor dui, tincidunt quis ligula eget, posuere pharetra dolor. Nam imperdiet rhoncus efficitur. Aenean vitae viverra eros.</p>
+        <p>Hosted at Ordin@trix, Crypt@trix is the annual Cryptic Hunt event. It is an online scavenger hunt contest where participants are timed and given a series of challenging clues. With these clues, participants put their investigative skills to pursuit and get an answer. Each answer contributes to a team's score. Teams compete on the populated <Link href="/leaderboard">leaderboard</Link> throughout the event.</p>
       </div>
       <div className="flex-occupy-33">
         <Image src={aboutImage} alt="About"></Image>
