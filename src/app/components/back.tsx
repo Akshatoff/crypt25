@@ -1,6 +1,7 @@
+import React from "react";
 import Link from "next/link";
-import Image from 'next/image';
-import backIcon from '../../../public/back.svg';
+import Image from "next/image";
+import backIcon from "../../../public/back.svg";
 
 export default function Back() {
   return (

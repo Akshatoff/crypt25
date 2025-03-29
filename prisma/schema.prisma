@@ -24,22 +24,32 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  School        School?   @relation(fields: [schoolCode], references: [code])
+  schoolCode    String?
+  attempts      Attempt[]
+  level         Int       @default(1)
+  score         Int       @default(0)
+  banned        Boolean   @default(false)
+  finished      Boolean   @default(false)
 
+  @@index([schoolCode])
   @@map("user")
 }
 
 model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime
-  updatedAt DateTime
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  expiresAt    DateTime
+  token        String
+  createdAt    DateTime
+  updatedAt    DateTime
+  ipAddress    String?
+  userAgent    String?
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
+  @@index([userId])
   @@map("session")
 }
 
@@ -71,4 +81,35 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model School {
+  name      String
+  users     User[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  code      String    @id @unique
+  Attempt   Attempt[]
+}
+
+model Attempt {
+  id          String   @id @default(cuid())
+  school_id   String
+  user_id     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userAttempt String
+  School      School?  @relation(fields: [schoolCode], references: [code])
+  schoolCode  String?
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+
+  @@index([user_id])
+  @@index([school_id])
+}
+
+model CorrectAttempt {
+  id      String @id @default(cuid())
+  level   Int
+  attempt String
 }
