@@ -1,0 +1,12 @@
+{
+    "schools": [
+        {
+            "schoolCode": "123456",
+            "schoolName": "Tagore International School Vasant Vihar"
+        },
+        {
+            "schoolCode": "231703",
+            "schoolName": "Bhatnagar Internation Schools"
+        }
+    ]
+}
