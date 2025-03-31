@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String    @id @unique
   email         String    @unique
   name          String
   createdAt     DateTime  @default(now())
@@ -38,7 +38,6 @@ model User {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
   expiresAt    DateTime
   token        String
   createdAt    DateTime
