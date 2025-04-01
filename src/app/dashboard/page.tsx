@@ -18,41 +18,34 @@ export default function page() {
   const [code, setCode] = useState("");
   const [schoolName, setSchoolName] = useState<string | null>(null);
 
-
-
   const verifySchoolCode = async () => {
     try {
       const response = await fetch("/schoolCheck", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ schoolCode: code }),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         setSchoolName(data.schoolName);
         alert("School Code Verified");
-      }
-      else {
+      } else {
         alert(data.error);
-        setSchoolName(null)
+        setSchoolName(null);
       }
-    }
-    catch (error){
+    } catch (error) {
       console.error("Error Verifying School Code", error);
       alert("something went wrong please try again");
     }
-    
-  }
-
+  };
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
         const { data } = await authClient.getSession();
         console.log(data);
-        
+
         if (!data || !data.user) {
           router.push("/login");
         }
@@ -80,12 +73,20 @@ export default function page() {
         )}
 
         <div className="school-con">
-          <input type="text" name="school-code" id="code" placeholder="Enter your school code" value={code} onChange={(e) => setCode(e.target.value)} />
-          <button className="submit" onClick={verifySchoolCode}>Verify Code</button>
+          <input
+            type="text"
+            name="school-code"
+            id="code"
+            placeholder="Enter your school code"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+          <button className="submit" onClick={verifySchoolCode}>
+            Verify Code
+          </button>
           {schoolName && <p>School Name: {schoolName}</p>}
         </div>
       </div>
     </>
   );
 }
-
