@@ -2,8 +2,8 @@ import Link from "next/link";
 import Back from "../components/Back";
 
 const eventConfig = {
-  startDate: new Date(2025, 4, 5, 12, 0, 0),
-  endDate: new Date(2025, 4, 7, 12, 0, 0),
+  startDate: new Date(2025, 4, 4, 12, 0, 0),
+  endDate: new Date(2025, 4, 6, 12, 0, 0),
 };
 
 const duration = `${
