@@ -21,7 +21,7 @@ font-family: 'Roboto', sans-serif; */
   --darkTint1: #303030;
   --darkTint2: #505050;
   --text: #fff;
-  --link: #5865F2;
+  --link: #5865f2;
 }
 
 ::-webkit-scrollbar {
@@ -130,7 +130,12 @@ span.subtitle {
   user-select: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 30px;
 }
 
@@ -141,7 +146,7 @@ a {
 }
 
 .titleLink {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.8rem;
   margin-top: -15px;
   color: var(--text);
@@ -202,11 +207,12 @@ button.rounded {
 }
 
 button.blurple {
-  background: #5865F2;
-  color: #FFFFFF;
+  background: #5865f2;
+  color: #ffffff;
 }
 
-button:hover, a:hover {
+button:hover,
+a:hover {
   filter: brightness(0.8);
   scale: 0.975;
 }
@@ -233,11 +239,14 @@ table {
   border-collapse: collapse;
 }
 
-table, td, th {
+table,
+td,
+th {
   border: 2.5px var(--darkTint1) solid;
 }
 
-td, th {
+td,
+th {
   text-align: center;
 }
 
@@ -246,10 +255,33 @@ th {
   border: 2.5px var(--darkTint1) solid;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 1.5rem 0;
 }
 
 li {
   margin-left: 2rem;
+}
+
+.school-con {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+}
+
+input {
+  padding: 0.5rem 0.2rem;
+  border: 2px solid white;
+  font-size: 1.2rem;
+  font-family: "Poppins", sans-serif;
+  border-radius: 20px;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  margin: 5rem auto;
 }
