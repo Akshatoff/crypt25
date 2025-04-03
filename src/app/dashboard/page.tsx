@@ -15,8 +15,9 @@ export default function page() {
   const [session, setSession] = useState<UserSession | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState<string | null>(null);
   const [schoolName, setSchoolName] = useState<string | null>(null);
+  const [inputCode, setInputCode] = useState("");
 
   const verifySchoolCode = async () => {
     try {
@@ -29,6 +30,7 @@ export default function page() {
       const data = await response.json();
       if (response.ok) {
         setSchoolName(data.schoolName);
+        setCode(inputCode);
         alert("School Code Verified");
       } else {
         alert(data.error);
@@ -41,23 +43,50 @@ export default function page() {
   };
 
   useEffect(() => {
-    const fetchSession = async () => {
+    const fetchSessionAndSchool = async () => {
       try {
         const { data } = await authClient.getSession();
-        console.log(data);
 
         if (!data || !data.user) {
           router.push("/login");
         }
         setSession(data as UserSession);
+
+        const response = await fetch("/getSchool");
+        const schoolData = await response.json();
+
+        if (response.ok && schoolData.schoolCode) {
+          setCode(schoolData.schoolCode);
+          await fetchSchoolName(schoolData.schoolCode);
+        }
       } catch (error) {
         setError(error as any);
         console.error("Error fetching data", error);
       }
     };
 
-    fetchSession();
+    fetchSessionAndSchool();
   }, []);
+
+  const fetchSchoolName = async (code: string) => {
+    try {
+      const res = await fetch("/schoolCheck", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ schoolCode: code }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setSchoolName(data.schoolName);
+      } else {
+        setCode(null);
+        setSchoolName(null);
+      }
+    } catch (error) {
+      console.error("Error fetching school code", error);
+    }
+  };
 
   return (
     <>
@@ -73,19 +102,23 @@ export default function page() {
         )}
 
         <div className="school-con">
-          <input
-            type="text"
-            name="school-code"
-            id="code"
-            placeholder="Enter your school code"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          />
-          <button className="submit" onClick={verifySchoolCode}>
-            Verify Code
-          </button>
-          {schoolName && <p>School Name: {schoolName}</p>}
+          {code ? (
+            <p>School Name: {schoolName || "Fetching..."}</p>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Enter your school code"
+                value={inputCode}
+                onChange={(e) => setInputCode(e.target.value)}
+              />
+              <button className="submit" onClick={verifySchoolCode}>
+                Verify Code
+              </button>
+            </>
+          )}
         </div>
+        <button className="btn ">Play</button>
       </div>
     </>
   );
