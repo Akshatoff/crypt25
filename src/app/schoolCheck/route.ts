@@ -68,8 +68,6 @@ export async function POST(req: Request) {
       data: { schoolCode },
     });
 
-    console.log("User updated successfully:", user);
-
     return NextResponse.json({
       message: "School Code verified",
       user,
