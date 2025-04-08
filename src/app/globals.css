@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Coming+Soon&family=Montserrat&family=Montserrat+Alternates&family=Open+Sans&family=Poppins&family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* font-family: 'Bebas Neue', sans-serif;
 font-family: 'Coming Soon', cursive;
@@ -46,6 +47,16 @@ body {
   font-family: "Open Sans", sans-serif;
   width: 100%;
   height: 100%;
+}
+
+@font-face {
+  font-family: "Basquiat";
+  src: url("../../public/Basquiat/Basquiat.ttf");
+}
+
+@font-face {
+  font-family: "Grimace";
+  src: url("../../public/Grimace/Grimace.ttf");
 }
 
 div.flex-row {
@@ -128,6 +139,8 @@ span.subtitle {
   color: var(--text);
   opacity: 0.8;
   user-select: none;
+  position: relative;
+  z-index: 10;
 }
 
 h1,
@@ -284,4 +297,51 @@ input {
 .btn {
   padding: 1rem 2rem;
   margin: 5rem auto;
+}
+
+div:nth-child(1) {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  font-size: 4rem !important;
+  font-family: "Basquiat", serif;
+  text-transform: uppercase;
+  letter-spacing: 0.4rem;
+ font-weight: 200;
+ position: relative;
+ z-index: 10;
+}
+
+.heading:nth-child(6) {
+  font-family: "Grimace", sans-serif;
+  font-size: 3rem !important;
+}
+
+.encrypted {
+  font-size: 4rem !important;
+  font-family: "Basquiat", serif;
+  letter-spacing: 0.4rem;
+  position: relative;
+ z-index: 10;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 100vh;
+  
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 0.5;
+  background-color: #080808;
 }

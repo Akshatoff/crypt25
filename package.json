@@ -13,6 +13,7 @@
     "@prisma/client": "^6.5.0",
     "animate.css": "^4.1.1",
     "better-auth": "^1.2.4",
+    "framer-motion": "^12.6.3",
     "next": "15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
