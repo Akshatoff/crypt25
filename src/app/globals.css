@@ -281,9 +281,6 @@ input {
   margin-top: 2rem;
   text-align: center;
 }
-div:nth-child(1) {
-  display: flex;
-}
 
 canvas {
   width: 100%;
@@ -355,4 +352,21 @@ canvas {
 .link:hover {
   text-decoration: underline;
   text-underline-offset: 0.5rem;
+}
+
+.popup {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: auto;
+}
+
+.close {
+  align-self: flex-end;
+}
+
+input,
+button {
+  align-self: center;
 }

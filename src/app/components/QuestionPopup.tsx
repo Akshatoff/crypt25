@@ -1,16 +1,11 @@
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import backIcon from "../../../public/back.svg";
 
 function check() {
   // Logic to check answers
 }
 
 function Question({ text }: { text: string }) {
-  return (
-    <span className="questionBox__question">{text}</span>
-  );
+  return <span className="questionBox__question">{text}</span>;
 }
 
 function Input() {
@@ -23,17 +18,34 @@ function Input() {
 }
 
 function Submit() {
-  return (
-    <button onClick={check}>Check</button>
-  )
+  return <button onClick={check}>Check</button>;
 }
 
-export default function QuestionPopup(questionText:string, onSubmit:Function) {
+export default function QuestionPopup({
+  questionText,
+  img,
+  onClose,
+}: {
+  questionText: string;
+  img?: string;
+  onClose: () => void;
+}) {
   return (
     <div className="popup questionBox">
-      <Question text={questionText}></Question>
-      <Input></Input>
-      <Submit></Submit>
+      <button className="close" onClick={onClose}>
+        X
+      </button>
+      {img && (
+        <img
+          src={img}
+          alt="Question"
+          style={{ width: "100%", borderRadius: "10px" }}
+        />
+      )}
+      <span className="questionBox__question">{questionText}</span>
+      <b>Input your final answer…</b>
+      <input placeholder="Answer" />
+      <button>Check</button>
     </div>
   );
 }

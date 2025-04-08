@@ -1,0 +1,20 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "question": "There are 3 Numbers carved in stone, Only the group of 4 will light the way ___________",
+      "answer": "cskfinals",
+      "img": "https://media.discordapp.net/attachments/936878486843424788/1359141827684335757/first.jpeg?ex=67f666f7&is=67f51577&hm=b6c7389c1021df0c06bc588b8c8a1a0e60a0b2a19beb3e9a70c12183ad08df98&=&format=webp"
+    },
+    {
+      "level": 2,
+      "question": " It begins at the end—where pieces are taken, not given. Listen to the whispers beyond Experiment 814, where numbers lose their meaning and become something... other. Seek the one who gathers what is lost: fingers, claws, control. They called it an improvement. They called it inevitable. Subtract the sum of all prior failures. What remains is incomplete, yet far more dangerous than the sum of its parts.",
+      "answer": "annaparu"
+    },
+    {
+      "level": 3,
+      "question": "When did you run 74 picograms through these? purely a simple sight.",
+      "answer": "kuch bhi"
+    }
+  ]
+}

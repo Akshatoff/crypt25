@@ -2,6 +2,7 @@ import Link from "next/link";
 import "animate.css";
 import LetterGlitch from "./components/LetterGlitch";
 import DecryptedText from "./components/DecryptedText";
+import QuestionPopup from "./components/QuestionPopup";
 
 export default function Home() {
   return (

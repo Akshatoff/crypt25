@@ -3,6 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import dynamic from "next/dynamic";
+import { getQuestionByLevel } from "@/lib/question";
+
+const QuestionPopup = dynamic(() => import("@/app/components/QuestionPopup"), {
+  ssr: false,
+});
 
 type UserSession = {
   user?: {
@@ -18,7 +24,26 @@ export default function page() {
   const [code, setCode] = useState<string | null>(null);
   const [schoolName, setSchoolName] = useState<string | null>(null);
   const [inputCode, setInputCode] = useState("");
+  const [questionData, setQuestionData] = useState<any>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const handlePlay = async () => {
+    const res = await fetch("/getlevel");
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Error fetching level");
+      return;
+    }
+
+    const question = getQuestionByLevel(data.level);
+    if (question) {
+      setQuestionData(question);
+      setShowPopup(true);
+    } else {
+      alert("No question found for your level!");
+    }
+  };
   const verifySchoolCode = async () => {
     try {
       const response = await fetch("/schoolCheck", {
@@ -118,7 +143,17 @@ export default function page() {
             </>
           )}
         </div>
-        <button className="btn ">Play</button>
+
+        <button className="btn" onClick={handlePlay}>
+          Play
+        </button>
+        {showPopup && questionData && (
+          <QuestionPopup
+            questionText={questionData.question}
+            img={questionData.img}
+            onClose={() => setShowPopup(false)}
+          />
+        )}
       </div>
     </>
   );
