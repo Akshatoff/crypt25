@@ -353,13 +353,16 @@ canvas {
   text-decoration: underline;
   text-underline-offset: 0.5rem;
 }
-
+/* 
 .popup {
-  width: 20rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin: auto;
+  background-color: var(--bg2);
+  width: 25rem;
+  padding: 2rem 2rem;
+  border-radius: 20px;
 }
 
 .close {
@@ -369,4 +372,10 @@ canvas {
 input,
 button {
   align-self: center;
+} */
+
+.input-con {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

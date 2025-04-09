@@ -151,6 +151,7 @@ export default function page() {
           <QuestionPopup
             questionText={questionData.question}
             img={questionData.img}
+            open={showPopup}
             onClose={() => setShowPopup(false)}
           />
         )}
