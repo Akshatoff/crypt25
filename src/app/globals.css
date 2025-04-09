@@ -36,12 +36,12 @@ font-family: 'Roboto', sans-serif; */
 
 @font-face {
   font-family: "Basquiat";
-  src: url("/public/Basquiat/Basquiat.otf");
+  src: url("/public/fonts/Basquiat/Basquiat.otf");
 }
 
 @font-face {
   font-family: "Grimace";
-  src: url("/public/grimace/GRIMACE.TTF");
+  src: url("/public/fonts/Grimace/Grimace.TTF");
 }
 
 html,
