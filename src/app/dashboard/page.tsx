@@ -27,7 +27,7 @@ export default function page() {
   const [questionData, setQuestionData] = useState<any>(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  const handlePlay = async () => {
+  const fetchandShowQuestion = async () => {
     const res = await fetch("/getlevel");
     const data = await res.json();
 
@@ -144,7 +144,7 @@ export default function page() {
           )}
         </div>
 
-        <button className="btn" onClick={handlePlay}>
+        <button className="btn" onClick={fetchandShowQuestion}>
           Play
         </button>
         {showPopup && questionData && (
@@ -153,6 +153,7 @@ export default function page() {
             img={questionData.img}
             open={showPopup}
             onClose={() => setShowPopup(false)}
+            onNextLevel={fetchandShowQuestion}
           />
         )}
       </div>

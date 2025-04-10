@@ -25,11 +25,13 @@ export default function QuestionPopup({
   img,
   open,
   onClose,
+  onNextLevel,
 }: {
   questionText: string;
   img?: string;
   open: boolean;
   onClose: () => void;
+  onNextLevel: () => void;
 }) {
   const [solved, setSolved] = useState(false);
   const [inputAnswer, setInputAnswer] = useState("");
@@ -52,7 +54,10 @@ export default function QuestionPopup({
 
   const goToNextLevel = async () => {
     setSolved(false);
+    setInputAnswer("");
+
     onClose();
+    onNextLevel();
   };
 
   return (

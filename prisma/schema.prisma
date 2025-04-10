@@ -102,6 +102,7 @@ model Attempt {
   schoolCode  String?
   User        User?    @relation(fields: [userId], references: [id])
   userId      String?
+  level       Int
 
   @@index([user_id])
   @@index([school_id])
