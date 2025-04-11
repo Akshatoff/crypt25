@@ -379,3 +379,7 @@ button {
   flex-direction: column;
   gap: 1rem;
 }
+
+#modal-modal-title {
+  white-space: pre-wrap;
+}
