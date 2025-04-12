@@ -89,6 +89,7 @@ model School {
   updatedAt DateTime  @default(now()) @updatedAt
   code      String    @id @unique
   Attempt   Attempt[]
+  score     Int       @default(0)
 }
 
 model Attempt {

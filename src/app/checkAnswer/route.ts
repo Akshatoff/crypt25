@@ -35,24 +35,93 @@ export async function POST(req: Request) {
   const isCorrect =
     currentQuestion.answer.toLowerCase().trim() === answer.trim().toLowerCase();
 
-  await db.attempt.create({
-    data: {
-      school_id: user.schoolCode || "",
-      user_id: user.id,
-      userAttempt: answer,
-      level: currentLevel,
-      schoolCode: user.schoolCode,
-      userId: user.id,
-    },
-  });
   if (isCorrect) {
-    await db.user.update({
-      where: { email: session.user.email },
-      data: { level: currentLevel + 1 },
+    const existingCorrectAttempt = await db.attempt.findFirst({
+      where: {
+        level: currentLevel,
+        schoolCode: user.schoolCode ?? undefined,
+        userAttempt: {
+          equals: currentQuestion.answer,
+          mode: "insensitive",
+        },
+      },
     });
 
-    return NextResponse.json({ success: true, nextLevel: currentLevel + 1 });
+    if (!existingCorrectAttempt) {
+      const uniqueSchoolCount = await db.attempt.findMany({
+        where: {
+          level: currentLevel,
+          userAttempt: {
+            equals: currentQuestion.answer,
+            mode: "insensitive",
+          },
+        },
+        select: {
+          schoolCode: true,
+        },
+        distinct: ["schoolCode"],
+      });
+
+      const position = uniqueSchoolCount.length;
+      const scoreToAward = Math.max(100 - position * 10, 10);
+
+      await db.school.update({
+        where: {
+          code: user.schoolCode ?? "",
+        },
+        data: {
+          score: { increment: scoreToAward },
+        },
+      });
+
+      await db.user.updateMany({
+        where: {
+          schoolCode: user.schoolCode ?? undefined,
+          level: currentLevel,
+        },
+        data: {
+          level: currentLevel + 1,
+        },
+      });
+    }
+
+    await db.attempt.create({
+      data: {
+        user_id: user.id,
+        school_id: user.schoolCode ?? "",
+        userAttempt: answer,
+        level: currentLevel,
+        schoolCode: user.schoolCode,
+        userId: user.id,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      nextLevel: currentLevel + 1,
+    });
   } else {
     return NextResponse.json({ success: false, message: "Wrong Answer" });
   }
+
+  // await db.attempt.create({
+  //   data: {
+  //     school_id: user.schoolCode || "",
+  //     user_id: user.id,
+  //     userAttempt: answer,
+  //     level: currentLevel,
+  //     schoolCode: user.schoolCode,
+  //     userId: user.id,
+  //   },
+  // });
+  // if (isCorrect) {
+  //   await db.user.update({
+  //     where: { email: session.user.email },
+  //     data: { level: currentLevel + 1 },
+  //   });
+
+  //   return NextResponse.json({ success: true, nextLevel: currentLevel + 1 });
+  // } else {
+  //   return NextResponse.json({ success: false, message: "Wrong Answer" });
+  // }
 }
