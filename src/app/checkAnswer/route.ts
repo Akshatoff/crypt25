@@ -8,9 +8,8 @@ export async function POST(req: Request) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-
-  if (!session?.user?.email) {
-    return NextResponse.json({ error: "Not Authorised" }, { status: 401 });
+  if (!session || !session.user?.email) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
   const body = await req.json();
@@ -26,11 +25,7 @@ export async function POST(req: Request) {
   }
 
   const currentLevel = user.level;
-  const currentQuestion = question.levels.find((q) => q.level === currentLevel);
-
-  if (!currentQuestion) {
-    return NextResponse.json({ error: "Question not found" }, { status: 404 });
-  }
+  const currentQuestion = question.levels[currentLevel];
 
   const isCorrect =
     currentQuestion.answer.toLowerCase().trim() === answer.trim().toLowerCase();
@@ -101,27 +96,38 @@ export async function POST(req: Request) {
       nextLevel: currentLevel + 1,
     });
   } else {
+    await prisma.attempt.create({
+      data: {
+        user_id: user.id,
+        school_id: user.schoolCode ?? "",
+        userAttempt: answer,
+        level: currentLevel,
+        schoolCode: user.schoolCode,
+        userId: user.id,
+      },
+    });
+
     return NextResponse.json({ success: false, message: "Wrong Answer" });
   }
-
-  // await prisma.attempt.create({
-  //   data: {
-  //     school_id: user.schoolCode || "",
-  //     user_id: user.id,
-  //     userAttempt: answer,
-  //     level: currentLevel,
-  //     schoolCode: user.schoolCode,
-  //     userId: user.id,
-  //   },
-  // });
-  // if (isCorrect) {
-  //   await prisma.user.update({
-  //     where: { email: session.user.email },
-  //     data: { level: currentLevel + 1 },
-  //   });
-
-  //   return NextResponse.json({ success: true, nextLevel: currentLevel + 1 });
-  // } else {
-  //   return NextResponse.json({ success: false, message: "Wrong Answer" });
-  // }
 }
+
+// await prisma.attempt.create({
+//   data: {
+//     school_id: user.schoolCode || "",
+//     user_id: user.id,
+//     userAttempt: answer,
+//     level: currentLevel,
+//     schoolCode: user.schoolCode,
+//     userId: user.id,
+//   },
+// });
+// if (isCorrect) {
+//   await prisma.user.update({
+//     where: { email: session.user.email },
+//     data: { level: currentLevel + 1 },
+//   });
+
+//   return NextResponse.json({ success: true, nextLevel: currentLevel + 1 });
+// } else {
+//   return NextResponse.json({ success: false, message: "Wrong Answer" });
+// }
