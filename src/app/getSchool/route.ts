@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/server/db";
+import { prisma } from "@/server/db"; // your Prisma client
 import { auth } from "@/server/auth";
 import { headers } from "next/headers";
 
@@ -12,12 +12,12 @@ export async function GET(req: NextRequest) {
     if (!data || !data.user) {
       return NextResponse.json({ error: "unauthorised" }, { status: 401 });
     }
-    const user = await db.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email: data?.user.email },
       select: { schoolCode: true },
     });
 
-    return NextResponse.json({ schoolCode: user.schoolCode || null });
+    return NextResponse.json({ schoolCode: user?.schoolCode || null });
   } catch (error) {
     console.error("Error fetching school Code", error);
     return NextResponse.json(

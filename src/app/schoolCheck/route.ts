@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/server/db";
+import { prisma } from "@/server/db"; // your Prisma client
 import schoolData from "@/app/schoolData.json";
 import { auth } from "@/server/auth";
 import { headers } from "next/headers";

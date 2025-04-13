@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import db from "@/server/db";
+import { prisma } from "@/server/db"; // your Prisma client
 
 export async function GET() {
-  const school = await db.school.findUnique({
+  const school = await prisma.school.findUnique({
     where: { code: "123456" },
     include: { users: true },
   });

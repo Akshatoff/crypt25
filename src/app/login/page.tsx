@@ -2,10 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from 'next/image'
+import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
-import discordSVG from '../../../public/discord.svg';
-import Back from '../components/Back';
+import discordSVG from "../../../public/discord.svg";
+import Back from "../components/Back";
 
 const handleLogin = async () => {
   try {
@@ -13,7 +13,7 @@ const handleLogin = async () => {
       provider: "discord",
       callbackURL: "/dashboard",
       errorCallbackURL: "/error",
-      newUserCallbackURL: "/welcome",
+      newUserCallbackURL: "/dashboard",
       disableRedirect: false,
     });
   } catch (error) {
@@ -26,9 +26,7 @@ export default function page() {
     <>
       <Back></Back>
       <div className="section centered cover" id="home">
-        <span className="subtitle">
-          Crypt@trix
-        </span>
+        <span className="subtitle">Crypt@trix</span>
         <p>Interact with the button below to authorise your Discord account.</p>
         <button className="blurple" onClick={handleLogin}>
           <Image src={discordSVG} alt="Discord" />

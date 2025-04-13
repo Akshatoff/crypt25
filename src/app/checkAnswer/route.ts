@@ -1,5 +1,5 @@
 import { auth } from "@/server/auth";
-import db from "@/server/db"; // your Prisma client
+import { prisma } from "@/server/db"; // your Prisma client
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import question from "@/app/question.json";
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { answer } = body;
 
-  const user = await db.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { email: session.user.email },
     include: { School: true },
   });
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     currentQuestion.answer.toLowerCase().trim() === answer.trim().toLowerCase();
 
   if (isCorrect) {
-    const existingCorrectAttempt = await db.attempt.findFirst({
+    const existingCorrectAttempt = await prisma.attempt.findFirst({
       where: {
         level: currentLevel,
         schoolCode: user.schoolCode ?? undefined,
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     });
 
     if (!existingCorrectAttempt) {
-      const uniqueSchoolCount = await db.attempt.findMany({
+      const uniqueSchoolCount = await prisma.attempt.findMany({
         where: {
           level: currentLevel,
           userAttempt: {
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       const position = uniqueSchoolCount.length;
       const scoreToAward = Math.max(100 - position * 10, 10);
 
-      await db.school.update({
+      await prisma.school.update({
         where: {
           code: user.schoolCode ?? "",
         },
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
         },
       });
 
-      await db.user.updateMany({
+      await prisma.user.updateMany({
         where: {
           schoolCode: user.schoolCode ?? undefined,
           level: currentLevel,
@@ -85,7 +85,7 @@ export async function POST(req: Request) {
       });
     }
 
-    await db.attempt.create({
+    await prisma.attempt.create({
       data: {
         user_id: user.id,
         school_id: user.schoolCode ?? "",
@@ -104,7 +104,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, message: "Wrong Answer" });
   }
 
-  // await db.attempt.create({
+  // await prisma.attempt.create({
   //   data: {
   //     school_id: user.schoolCode || "",
   //     user_id: user.id,
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
   //   },
   // });
   // if (isCorrect) {
-  //   await db.user.update({
+  //   await prisma.user.update({
   //     where: { email: session.user.email },
   //     data: { level: currentLevel + 1 },
   //   });

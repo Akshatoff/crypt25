@@ -1,5 +1,5 @@
 import { auth } from "@/server/auth";
-import db from "@/server/db"; // your Prisma client
+import { prisma } from "@/server/db"; // your Prisma client
 import { headers } from "next/headers";
 
 export async function GET() {
@@ -13,7 +13,7 @@ export async function GET() {
     });
   }
 
-  const user = await db.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { email: session.user.email },
     select: { level: true },
   });
