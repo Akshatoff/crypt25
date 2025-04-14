@@ -32,9 +32,9 @@ export default function Home() {
               New Game
             </h2>
           </Link>
-          <Link href="/login">
+          <Link href="/leaderboard">
             <h2 className="link" id="second-op">
-              Login
+              Leaderboard
             </h2>
           </Link>
           <Link href="/about">
