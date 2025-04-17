@@ -15,14 +15,16 @@ export async function GET() {
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
-    select: { level: true },
+    include: { School: true },
   });
 
-  if (!user) {
-    return new Response(JSON.stringify({ error: "User not found" }), {
+  if (!user || !user.School) {
+    return new Response(JSON.stringify({ error: "User or school not found" }), {
       status: 404,
     });
   }
 
-  return new Response(JSON.stringify({ level: user.level }), { status: 200 });
+  return new Response(JSON.stringify({ level: user.School.level }), {
+    status: 200,
+  });
 }

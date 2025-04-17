@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "School" ADD COLUMN     "level" INTEGER NOT NULL DEFAULT 1;

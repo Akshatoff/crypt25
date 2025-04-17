@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
@@ -26,15 +25,18 @@ export default function QuestionPopup({
   open,
   onClose,
   onNextLevel,
+  level,
 }: {
   questionText: string;
   img?: string;
   open: boolean;
   onClose: () => void;
-  onNextLevel: () => void;
+  onNextLevel: (nextLevel: number) => void;
+  level: number;
 }) {
   const [solved, setSolved] = useState(false);
   const [inputAnswer, setInputAnswer] = useState("");
+  const [nextLevel, setNextLevel] = useState<number | null>(null);
 
   const checkAnswer = async () => {
     const res = await fetch("/checkAnswer", {
@@ -47,17 +49,19 @@ export default function QuestionPopup({
     if (data.success) {
       alert("Correct answer! Proceed to the next level");
       setSolved(true);
+      setNextLevel(data.nextLevel);
     } else {
       alert(data.message || "Wrong answer. Try again");
     }
   };
 
-  const goToNextLevel = async () => {
+  const goToNextLevel = () => {
     setSolved(false);
     setInputAnswer("");
-
     onClose();
-    onNextLevel();
+    if (nextLevel !== null) {
+      onNextLevel(nextLevel);
+    }
   };
 
   return (

@@ -17,6 +17,7 @@ type UserSession = {
     image?: string;
   };
 };
+
 export default function page() {
   const [session, setSession] = useState<UserSession | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -26,9 +27,12 @@ export default function page() {
   const [inputCode, setInputCode] = useState("");
   const [questionData, setQuestionData] = useState<any>(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [currentLevel, setCurrentLevel] = useState<number | null>(null);
 
   const fetchandShowQuestion = async () => {
-    const res = await fetch("/getlevel");
+    const res = await fetch("/getlevel", {
+      cache: "no-store", // important for SSR/client fetch
+    });
     const data = await res.json();
 
     if (!res.ok) {
@@ -36,7 +40,9 @@ export default function page() {
       return;
     }
 
-    const question = getQuestionByLevel(data.level);
+    const level = data.level;
+    setCurrentLevel(level); // still store for popup UI
+    const question = getQuestionByLevel(level);
     if (question) {
       setQuestionData(question);
       setShowPopup(true);
@@ -44,12 +50,13 @@ export default function page() {
       alert("No question found for your level!");
     }
   };
+
   const verifySchoolCode = async () => {
     try {
       const response = await fetch("/schoolCheck", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ schoolCode: code }),
+        body: JSON.stringify({ schoolCode: inputCode }),
       });
 
       const data = await response.json();
@@ -144,16 +151,21 @@ export default function page() {
           )}
         </div>
 
-        <button className="btn" onClick={fetchandShowQuestion}>
+        <button className="btn" onClick={() => fetchandShowQuestion()}>
           Play
         </button>
+
         {showPopup && questionData && (
           <QuestionPopup
             questionText={questionData.question}
             img={questionData.img}
             open={showPopup}
             onClose={() => setShowPopup(false)}
-            onNextLevel={fetchandShowQuestion}
+            onNextLevel={(nextLevel: number) => {
+              setCurrentLevel(nextLevel);
+              fetchandShowQuestion();
+            }}
+            level={currentLevel || 1}
           />
         )}
       </div>

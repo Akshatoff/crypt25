@@ -24,11 +24,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  const currentLevel = user.level;
-  const currentQuestion = question.levels[currentLevel];
+  const currentLevel = user.School?.level ?? 1;
+  const currentQuestion = question.levels[currentLevel - 1];
+  const normalize = (str: string) => str.replace(/\s+/g, "").toLowerCase();
+  // console.log("Expected:", currentQuestion.answer.toLowerCase().trim());
+  // console.log("Received:", answer.trim().toLowerCase());
 
-  const isCorrect =
-    currentQuestion.answer.toLowerCase().trim() === answer.trim().toLowerCase();
+  const isCorrect = normalize(currentQuestion.answer) === normalize(answer);
 
   if (isCorrect) {
     const existingCorrectAttempt = await prisma.attempt.findFirst({
@@ -41,6 +43,7 @@ export async function POST(req: Request) {
         },
       },
     });
+    console.log("existingCorrectAttempt:", !!existingCorrectAttempt);
 
     if (!existingCorrectAttempt) {
       const uniqueSchoolCount = await prisma.attempt.findMany({
@@ -60,24 +63,23 @@ export async function POST(req: Request) {
       const position = uniqueSchoolCount.length;
       const scoreToAward = Math.max(100 - position * 10, 10);
 
+      if (!user.schoolCode) {
+        return NextResponse.json(
+          { error: "No school code found for user" },
+          { status: 400 }
+        );
+      }
+
       await prisma.school.update({
         where: {
-          code: user.schoolCode ?? "",
+          code: user.schoolCode,
         },
         data: {
           score: { increment: scoreToAward },
-        },
-      });
-
-      await prisma.user.updateMany({
-        where: {
-          schoolCode: user.schoolCode ?? undefined,
-          level: currentLevel,
-        },
-        data: {
           level: currentLevel + 1,
         },
       });
+      console.log("Successfully updated school level.");
     }
 
     await prisma.attempt.create({
